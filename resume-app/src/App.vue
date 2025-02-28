@@ -44,7 +44,7 @@
 
       <div class="col-span-1 row-span-2 rounded-[2rem] bg-blue-400 hover:ring-2"></div>
       
-      <div class="col-span-1 row-span-1 rounded-[2rem] bg-red-200 hover:ring-2"></div>
+      <div id="spotify-api" class="col-span-1 row-span-1 rounded-[2rem] bg-red-200 hover:ring-2"><SpotifyNowPlaying /></div>
 
       <div class="col-span-1 row-span-1 rounded-[2rem] bg-linkedin-blue transition duration-200 hover:scale-105 h-full relative hover:ring-2">
         <a href="https://www.linkedin.com/in/jonathan-ong-66502a2b8/" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 inline-block">
