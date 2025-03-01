@@ -42,7 +42,7 @@
       
       <Github :isDark="isDark"/>
 
-      <div class="col-span-1 row-span-2 rounded-[2rem] bg-blue-400 hover:ring-2"></div>
+      <FrameworkCarou :class="{'bg-white': !isDark, 'bg-gray-800': isDark }"  class="col-span-1 row-span-2 rounded-[2rem] hover:ring-2"/>
       
       <SpotifyNowPlaying class="col-span-1 row-span-1 rounded-[2rem] bg-green-500 hover:ring-2" />
 
@@ -90,7 +90,7 @@ import AboutMe from './components/aboutMe.vue';
 import Wander from './components/wander.vue';
 import Github from './components/github.vue';
 import SpotifyNowPlaying from './components/spotifyNowPlaying.vue';
-
+import FrameworkCarou from './components/frameworkCarou.vue';
 export default {
   components: {
     AboutMe,
@@ -98,10 +98,12 @@ export default {
     Github,
     Switch,
     SpotifyNowPlaying,
+    FrameworkCarou,
   },
   data() {
     return {
       isDark: localStorage.getItem('theme') === 'dark' // Load dark mode preference
+      
     };
   },
   methods: {
@@ -126,8 +128,7 @@ export default {
 </script>
 
 <style>
-.icon-fade-enter-active,
-.icon-fade-leave-active {
+.icon-fade-enter-active, .icon-fade-leave-active {
   transition: all 0.3s ease;
   position: absolute;
 }
