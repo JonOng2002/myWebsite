@@ -1,49 +1,48 @@
 <template>
-    <div v-if="track">
-      <h2>Now Playing:</h2>
-      <p>{{ track.name }} by {{ track.artist }}</p>
-      <img :src="track.image" alt="Album Art" />
+  <div class="spotify-widget flex items-center justify-center p-4 bg-green-600 text-white rounded-2xl">
+    <div v-if="song">
+      <img :src="song.albumArt" alt="Album Cover" class="w-16 h-16 rounded-lg mr-4">
+      <div>
+        <p class="text-lg font-bold">{{ song.title }}</p>
+        <p class="text-sm">{{ song.artist }}</p>
+      </div>
     </div>
-  </template>
-  
-  <script>
-  export default {
-    data() {
-      return {
-        track: null
-      };
-    },
-    async created() {
+    <p v-else>Not playing anything...</p>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      song: null,
+    };
+  },
+  methods: {
+    async fetchLastPlayed() {
+      const params = new URLSearchParams(window.location.search);
+      const accessToken = params.get("access_token");
+      if (!accessToken) return console.error("No access token found");
+
       try {
-        const tokenRes = await fetch('/api/spotify');
-        const tokenData = await tokenRes.json();
-        const accessToken = tokenData.access_token;
-  
-        if (!accessToken) {
-          throw new Error('Access token is not available');
-        }
-  
-        const res = await fetch('https://api.spotify.com/v1/me/player/currently-playing', {
-          headers: {
-            'Authorization': `Bearer ${accessToken}`
-          }
-        });
-  
-        if (res.status === 204 || res.status > 400) {
-          throw new Error('No content or error fetching currently playing track');
-        }
-  
-        const data = await res.json();
-        if (data && data.item) {
-          this.track = {
-            name: data.item.name,
-            artist: data.item.artists.map(artist => artist.name).join(', '),
-            image: data.item.album.images[0].url
+        const response = await fetch(`/api/last-played?access_token=${accessToken}`);
+        const data = await response.json();
+        if (data.song) {
+          this.song = {
+            title: data.song,
+            artist: data.artist,
+            albumArt: data.albumArt
           };
+        } else {
+          this.song = null;
         }
       } catch (error) {
-        console.error('Error fetching Spotify data:', error);
+        console.error("Error fetching Spotify data:", error);
       }
     }
-  };
-  </script>
+  },
+  mounted() {
+    this.fetchLastPlayed();
+  }
+};
+</script>
