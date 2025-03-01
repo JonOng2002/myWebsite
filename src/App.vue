@@ -89,13 +89,15 @@ import { Switch } from '@headlessui/vue';
 import AboutMe from './components/aboutMe.vue';
 import Wander from './components/wander.vue';
 import Github from './components/github.vue';
+import SpotifyNowPlaying from './components/spotifyNowPlaying.vue';
 
 export default {
   components: {
     AboutMe,
     Wander,
     Github,
-    Switch
+    Switch,
+    SpotifyNowPlaying,
   },
   data() {
     return {
