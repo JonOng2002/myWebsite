@@ -14,7 +14,7 @@ export default async function handler(req, res) {
     }
 
     const msg = {
-        to: 'your-email@gmail.com',  // Replace with your email to receive messages
+        to: 'jonongca@email@gmail.com',  // Replace with your email to receive messages
         from: 'no-reply@jonongca.com',  // Must be from your verified domain
         replyTo: email,  // Allows you to reply directly to the visitor
         subject: `New Contact Form Submission from ${name}`,
