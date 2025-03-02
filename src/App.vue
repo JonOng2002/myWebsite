@@ -74,7 +74,7 @@
         </Switch>
       </div>
       <div class="col-span-2 row-span-1 rounded-[2rem] bg-orange-400 hover:ring-2"></div>
-      <div class="col-span-2 row-span-1 rounded-[2rem] bg-orange-400 hover:ring-2"></div>
+      <ContactMe :class="{'bg-white': !isDark, 'bg-gray-800': isDark }" />
     </div>
 
     <!-- Extra Section to Ensure Scrolling -->
@@ -91,6 +91,8 @@ import Wander from './components/wander.vue';
 import Github from './components/github.vue';
 import SpotifyNowPlaying from './components/spotifyNowPlaying.vue';
 import FrameworkCarou from './components/frameworkCarou.vue';
+import ContactMe from './components/contactMe.vue';
+
 export default {
   components: {
     AboutMe,
@@ -99,6 +101,7 @@ export default {
     Switch,
     SpotifyNowPlaying,
     FrameworkCarou,
+    ContactMe,
   },
   data() {
     return {
