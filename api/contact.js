@@ -1,6 +1,5 @@
 import sgMail from '@sendgrid/mail';
 
-// Load the SendGrid API Key from environment variables
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 export default async function handler(req, res) {
@@ -10,14 +9,14 @@ export default async function handler(req, res) {
 
     const { name, email, message } = req.body;
 
-    // Validate input
     if (!name || !email || !message) {
         return res.status(400).json({ message: 'All fields are required' });
     }
 
     const msg = {
-        to: 'your-email@gmail.com', // Your Gmail where messages will be sent
-        from: `contact@yourdomain.com`, // Your authenticated domain email
+        to: 'your-email@gmail.com',  // Replace with your email to receive messages
+        from: 'no-reply@jonongca.com',  // Must be from your verified domain
+        replyTo: email,  // Allows you to reply directly to the visitor
         subject: `New Contact Form Submission from ${name}`,
         text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
     };

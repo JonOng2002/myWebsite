@@ -42,7 +42,7 @@
       
       <Github :isDark="isDark"/>
 
-      <FrameworkCarou :class="{'bg-white': !isDark, 'bg-gray-800': isDark }"  class="col-span-1 row-span-2 rounded-[2rem] hover:ring-2"/>
+      <FrameworkCarou :class="{'bg-white border-2 border-gray-300': !isDark, 'bg-gray-800 border-2 border-gray-600': isDark }"  class="col-span-1 row-span-2 rounded-[2rem] hover:ring-2"/>
       
       <SpotifyNowPlaying class="col-span-1 row-span-1 rounded-[2rem] bg-green-500 hover:ring-2" />
 
@@ -54,7 +54,7 @@
 
       <div class="col-span-1 row-span-2 rounded-[2rem] bg-linkedin-blue hover:ring-2"></div>
       <Wander />
-      <div :class="{ 'bg-white border-2 border-gray-300': !isDark, 'bg-gray-300 border-2 border-gray-600': isDark }"
+      <div :class="{ 'bg-white border-2 border-gray-300': !isDark, 'bg-gray-800 border-2 border-gray-600': isDark }"
         class="col-span-1 row-span-1 rounded-[2rem] flex items-center justify-center transition duration-200 hover:scale-105 hover:ring-2">
         
         <Switch v-model="isDark"
@@ -74,7 +74,7 @@
         </Switch>
       </div>
       <div class="col-span-2 row-span-1 rounded-[2rem] bg-orange-400 hover:ring-2"></div>
-      <ContactMe :class="{'bg-white': !isDark, 'bg-gray-800': isDark }" />
+      <ContactMe :class="{'bg-white text-black': !isDark, 'bg-gray-800 text-white': isDark }" />
     </div>
 
     <!-- Extra Section to Ensure Scrolling -->
