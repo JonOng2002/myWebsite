@@ -42,12 +42,24 @@ export default async function handler(req, res) {
       if (!recentData.items || !recentData.items.length) {
         return res.status(404).json({ error: "No recently played songs found." });
       }
+      
       const recentTrack = recentData.items[0].track;
+      
+      // Fetch artist details to get artist image
+      const artistId = recentTrack.artists[0].id;
+      const artistResponse = await fetch(`https://api.spotify.com/v1/artists/${artistId}`, {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      });
+      
+      const artistData = await artistResponse.json();
+      
       return res.json({
         song: recentTrack.name,
         artist: recentTrack.artists.map(a => a.name).join(", "),
         albumArt: recentTrack.album.images?.[0]?.url ?? null,
+        artistImage: artistData.images?.[0]?.url ?? null,
         type: "recently-played",
+        spotifyUrl: recentTrack.external_urls?.spotify || null
       });
     }
 
@@ -58,11 +70,22 @@ export default async function handler(req, res) {
     }
 
     const track = nowPlayingData.item;
+    
+    // Fetch artist details to get artist image
+    const artistId = track.artists[0].id;
+    const artistResponse = await fetch(`https://api.spotify.com/v1/artists/${artistId}`, {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+    
+    const artistData = await artistResponse.json();
+    
     return res.json({
       song: track.name,
       artist: track.artists.map(a => a.name).join(", "),
       albumArt: track.album.images?.[0]?.url ?? null,
+      artistImage: artistData.images?.[0]?.url ?? null,
       type: "currently-playing",
+      spotifyUrl: track.external_urls?.spotify || null
     });
   } catch (error) {
     console.error("❌ Unexpected error in now-playing:", error);

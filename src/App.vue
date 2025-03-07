@@ -65,7 +65,7 @@
           <span class="sr-only">Toggle dark mode</span>
           <span aria-hidden="true"
             :class="isDark ? 'translate-x-[46px] -translate-y-[-4px]' : 'translate-x-1 -translate-y-[-4px]'"
-            class="pointer-events-none  h-8 w-8 transform rounded-full bg-white shadow-lg ring-0 transition-all duration-300 ease-in-out flex items-center justify-center">
+            class="pointer-events-none h-8 w-8 transform rounded-full bg-white shadow-lg ring-0 transition-all duration-300 ease-in-out flex items-center justify-center">
             <transition name="icon-fade" mode="out-in">
               <svg v-if="!isDark" key="sun" class="w-5 h-5 text-amber-600" viewBox="0 0 100 10" fill="currentColor"></svg>
               <svg v-else key="moon" class="w-5 h-5 text-blue-800" viewBox="0 0 100 100" fill="currentColor"></svg>
@@ -73,14 +73,33 @@
           </span>
         </Switch>
       </div>
-      <div class="col-span-2 row-span-1 rounded-[2rem] bg-orange-400 hover:ring-2"></div>
+      
+      <!-- Replace orange background div with grid of cat and volunteering tiles -->
+      <div class="grid grid-cols-2 gap-4 col-span-2 row-span-1">
+        <MyCatsTile :isDark="isDark" @click="openCatsSlideshow" />
+        <VolunteeringTile :isDark="isDark" @click="openVolunteeringSlideshow" />
+      </div>
+      
       <ContactMe :class="{'bg-white text-black': !isDark, 'bg-gray-800 text-white': isDark }" />
     </div>
 
     <!-- Extra Section to Ensure Scrolling -->
     <div class="py-20 text-center">
-      <p class="text-lg font-medium dark:text-white">Scroll down for more...</p>
+      <p class="text-lg font-medium dark:text-white">Website in development</p>
     </div>
+    
+    <!-- Modal Slideshows -->
+    <CatsSlideshow 
+      :isVisible="showCatsSlideshow" 
+      :isDark="isDark" 
+      @close="closeCatsSlideshow" 
+    />
+
+    <VolunteeringSlideshow 
+      :isVisible="showVolunteeringSlideshow" 
+      :isDark="isDark" 
+      @close="closeVolunteeringSlideshow" 
+    />
   </div>
 </template>
 
@@ -89,9 +108,13 @@ import { Switch } from '@headlessui/vue';
 import AboutMe from './components/aboutMe.vue';
 import Wander from './components/wander.vue';
 import Github from './components/github.vue';
-import SpotifyNowPlaying from './components/spotifyNowPlaying.vue';
+import SpotifyNowPlaying from './components/Spotify/spotifyNowPlaying.vue';
 import FrameworkCarou from './components/frameworkCarou.vue';
 import ContactMe from './components/contactMe.vue';
+import MyCatsTile from './components/MyCats/myCats.vue';
+import VolunteeringTile from './components/Volunteering/volunteering.vue';
+import CatsSlideshow from './components/MyCats/catsslideshow.vue';
+import VolunteeringSlideshow from './components/Volunteering/volunteeringSideShow.vue';
 
 export default {
   components: {
@@ -102,11 +125,16 @@ export default {
     SpotifyNowPlaying,
     FrameworkCarou,
     ContactMe,
+    MyCatsTile,
+    VolunteeringTile,
+    CatsSlideshow,
+    VolunteeringSlideshow,
   },
   data() {
     return {
-      isDark: localStorage.getItem('theme') === 'dark' // Load dark mode preference
-      
+      isDark: localStorage.getItem('theme') === 'dark', // Load dark mode preference
+      showCatsSlideshow: false,
+      showVolunteeringSlideshow: false,
     };
   },
   methods: {
@@ -119,6 +147,22 @@ export default {
         document.documentElement.classList.remove('dark');
         localStorage.setItem('theme', 'light');
       }
+    },
+    openCatsSlideshow() {
+      this.showCatsSlideshow = true;
+      document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+    },
+    closeCatsSlideshow() {
+      this.showCatsSlideshow = false;
+      document.body.style.overflow = ''; // Re-enable scrolling
+    },
+    openVolunteeringSlideshow() {
+      this.showVolunteeringSlideshow = true;
+      document.body.style.overflow = 'hidden';
+    },
+    closeVolunteeringSlideshow() {
+      this.showVolunteeringSlideshow = false;
+      document.body.style.overflow = '';
     }
   },
   mounted() {
