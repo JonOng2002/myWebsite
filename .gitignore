@@ -8,9 +8,11 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
-dist
+frontend/dist
 dist-ssr
 *.local
+.idea
+.vscode
 
 # Editor directories and files
 .vscode/*
@@ -23,5 +25,9 @@ dist-ssr
 *.sln
 *.sw?
 .vercel
-.env*.local
-sendgrid.env
+frontend/.env.local
+frontend/sendgrid.env
+
+# backend
+backend/.env
+backend/.env.test
