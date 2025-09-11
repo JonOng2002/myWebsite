@@ -106,11 +106,11 @@ export default {
     async getSongData() {
       this.loading = true;
       try {
-        const res = await fetch("/api/now-playing", {
+        const res = await fetch("http://localhost:3000/api/now-playing", {
           headers: { Authorization: `Bearer ${localStorage.getItem("spotify_access_token")}` },
         });
         if (!res.ok) {
-          // If no track is found or an error occurs, simply clear the song
+          // If no track is found or an error occurs, simply clear the songa
           this.song = null;
           this.songType = null;
           return;

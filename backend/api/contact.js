@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const sgMail = require('@sendgrid/mail');
 require('dotenv').config();
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
@@ -31,7 +32,6 @@ router.post('/', async (req, res) => {
             console.error(error);
             return res.status(500).json({ message: 'Error sending message', error });
         }
-    }
-});
+    });
 
 module.exports = router;
